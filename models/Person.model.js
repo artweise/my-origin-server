@@ -12,37 +12,37 @@ const personSchema = new Schema(
       required: true,
       trim: true,
     },
-    maidenName: {
-      type: String,
-      trim: true,
-    },
+    // maidenName: {
+    //   type: String,
+    //   trim: true,
+    // },
     gender: {
       type: String,
       enum: ['Male', 'Female', 'Unknown'],
     },
     dateOfBirth: Date,
-    isLiving: {
-      type: String,
-      enum: ['Living', 'Unknown', 'Deceased'],
-    },
-    dateOfDeath: Date,
-    placeOfBirth: {
-      type: String,
-      trim: true,
-    },
-    placeOfDeath: {
-      type: String,
-      trim: true,
-    },
-    additionalInfo: {
-      type: String,
-      trim: true,
-    },
-
-    // photo: {
+    // isLiving: {
     //   type: String,
-    //   default: 'images/default.png',
+    //   enum: ['Living', 'Unknown', 'Deceased'],
     // },
+    dateOfDeath: Date,
+    // placeOfBirth: {
+    //   type: String,
+    //   trim: true,
+    // },
+    // placeOfDeath: {
+    //   type: String,
+    //   trim: true,
+    // },
+    // additionalInfo: {
+    //   type: String,
+    //   trim: true,
+    // },
+    // gallery: [
+    //   {
+    //     type: String,
+    //   },
+    // ],
   },
   {
     timestamps: true,
