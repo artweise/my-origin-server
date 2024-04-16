@@ -4,6 +4,8 @@ import express from 'express';
 import { middlewareConfig } from './config/index.js';
 import { errorHandler } from './error-handling/errorHandler.js';
 import indexRoutes from './routes/index.routes.js';
+// import treeRoutes from './routes/tree.routes.js';
+import personRoutes from './routes/person.routes.js';
 
 // ℹ️ Gets access to environment variables/settings
 // https://www.npmjs.com/package/dotenv
@@ -17,8 +19,7 @@ config();
 // Sets the MongoDB URI for our app to have access to it.
 // If no env has been set, we dynamically set it to whatever the folder name was upon the creation of the app
 
-const MONGO_URI =
-  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/myorigin-app-server";
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/myorigin-app-server';
 
 mongoose
   .connect(MONGO_URI)
@@ -27,9 +28,8 @@ mongoose
     console.log(`Connected to Mongo! Database name: "${dbName}"`);
   })
   .catch((err) => {
-    console.error("Error connecting to mongo: ", err);
+    console.error('Error connecting to mongo: ', err);
   });
-
 
 // ℹ️ Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
@@ -41,6 +41,8 @@ middlewareConfig(app);
 
 // ℹ️ --- ROUTES ---
 app.use('/api', indexRoutes);
+// app.use('/api', treeRoutes);
+app.use('/api', personRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 errorHandler(app);
