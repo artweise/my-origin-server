@@ -4,7 +4,6 @@ import express from 'express';
 import { middlewareConfig } from './config/index.js';
 import { errorHandler } from './error-handling/errorHandler.js';
 import indexRoutes from './routes/index.routes.js';
-// import treeRoutes from './routes/tree.routes.js';
 import personRoutes from './routes/person.routes.js';
 
 // ℹ️ Gets access to environment variables/settings
@@ -41,7 +40,6 @@ middlewareConfig(app);
 
 // ℹ️ --- ROUTES ---
 app.use('/api', indexRoutes);
-// app.use('/api', treeRoutes);
 app.use('/api', personRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
