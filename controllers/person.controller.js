@@ -1,5 +1,4 @@
 import { personHandler } from '../handlers/person.handler.js';
-import { ISODateRegex } from '../utils/date.utils.js';
 
 const createNewPerson = async (req, res, next) => {
   const { firstName, lastName, gender, dateOfBirth, dateOfDeath } = req.body;
