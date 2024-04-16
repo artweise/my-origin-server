@@ -4,7 +4,7 @@ const relationshipSchema = new Schema(
   {
     relationshipType: {
       type: String,
-      enum: ['ParentChild', 'Spouse'],
+      enum: ['ParentChild', 'Spouse', 'Siblings'],
       required: true,
     },
     person1Id: {
@@ -17,12 +17,12 @@ const relationshipSchema = new Schema(
       ref: 'Person',
       required: true,
     },
-    dateOfMarriage: Date,
-    dateOfDivorce: Date,
-    additionalInfo: {
-      type: String,
-      trim: true,
-    },
+    // dateOfMarriage: Date,
+    // dateOfDivorce: Date,
+    // additionalInfo: {
+    //   type: String,
+    //   trim: true,
+    // },
   },
   {
     timestamps: true,
