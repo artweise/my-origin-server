@@ -9,7 +9,7 @@ const treeSchema = new Schema(
       required: true,
     },
     // IDs of all persons in the tree
-    personIds: [
+    memberIds: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Person',
