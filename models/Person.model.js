@@ -37,6 +37,11 @@ const personSchema = new Schema(
     //   type: String,
     //   trim: true,
     // },
+    familyTree: {
+      type: Schema.Types.ObjectId,
+      ref: 'Tree',
+      // required: true,
+    },
     // gallery: [
     //   {
     //     type: String,

@@ -53,8 +53,12 @@ const addMemberToFamilyTree = async (personId) => {
     throw error;
   }
 };
+const getFamilyTreeById = (treeId) => {
+  return Tree.findById(treeId).populate('members');
+};
 
 export const treeHandler = {
   initializeFamilyTree,
   addMemberToFamilyTree,
+  getFamilyTreeById,
 };

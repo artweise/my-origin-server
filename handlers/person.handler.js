@@ -4,6 +4,10 @@ const createPerson = (person) => {
   return Person.create(person);
 };
 
+const getPeopleByTreeId = (treeId) => {
+  return Person.find({ familyTree: treeId }).populate('familyTree');
+};
+
 const getPersonById = (personId) => {
   return Person.findById(personId);
 };
@@ -20,6 +24,7 @@ const deletePersonById = (personId) => {
 
 export const personHandler = {
   createPerson,
+  getPeopleByTreeId,
   getPersonById,
   editPersonById,
   deletePersonById,

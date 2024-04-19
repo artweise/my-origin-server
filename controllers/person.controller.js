@@ -45,12 +45,23 @@ const createNewPerson = async (req, res, next) => {
 
       // Send a success response with both the new person and relationship
       res.status(201).json({ newPerson, newRelationship, updatedTree });
-    } else {
-      // Send a success response with only the new person (no relationship)
-      res.status(201).json({ newPerson });
+      // } else {
+      //   // Send a success response with only the new person (no relationship)
+      //   res.status(201).json({ newPerson });
     }
   } catch (error) {
     // Handle errors
+    next(error);
+  }
+};
+
+const getPeopleByTreeId = async (req, res, next) => {
+  const { treeId } = req.params;
+  try {
+    const people = await personHandler.getPeopleByTreeId(treeId);
+    res.status(200).json(people);
+  } catch (error) {
+    // In this case, we send error handling to the error handling middleware.
     next(error);
   }
 };
@@ -101,6 +112,7 @@ const deletePerson = async (req, res, next) => {
 
 export const personController = {
   createNewPerson,
+  getPeopleByTreeId,
   getPersonById,
   editPerson,
   deletePerson,

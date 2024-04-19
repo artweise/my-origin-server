@@ -6,6 +6,9 @@ const personRoutes = express.Router();
 //  POST /api/person  -  Creates a new person in the family tree
 personRoutes.post('/person', personController.createNewPerson);
 
+// GET /api/people  -  Get all people in the family tree collection
+personRoutes.get('/peoole/:treeId', personController.getPeopleByTreeId);
+
 // GET /api/person/:personId  -  Get one person in the family tree
 personRoutes.get('/person/:personId', personController.getPersonById);
 
