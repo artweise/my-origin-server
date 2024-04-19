@@ -29,6 +29,12 @@ const initializeFamilyTree = async () => {
     // Create the tree with the child as the root
     const tree = await Tree.create({ rootPersonId: child._id });
 
+    // Add the IDs of default persons to the members array of the tree
+    tree.members.push(mother._id, father._id, child._id);
+
+    // Save the updated tree document
+    await tree.save();
+
     return { tree, rootPersonId: child._id };
   } catch (error) {
     console.error('Error initializing family tree:', error);
@@ -53,6 +59,7 @@ const addMemberToFamilyTree = async (personId) => {
     throw error;
   }
 };
+
 const getFamilyTreeById = (treeId) => {
   return Tree.findById(treeId).populate('members');
 };

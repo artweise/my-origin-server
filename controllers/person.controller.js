@@ -4,14 +4,22 @@ import { treeHandler } from '../handlers/tree.handler.js';
 
 const createNewPerson = async (req, res, next) => {
   try {
-    // Extract person data from request body
-    const { firstName, lastName, gender, dateOfBirth, dateOfDeath, person1Id, relationshipType } =
-      req.body;
+    // Extract person data and relationshipType from request body
+    const {
+      firstName,
+      lastName,
+      gender,
+      dateOfBirth,
+      dateOfDeath,
+      person1Id,
+      familyTree,
+      relationshipType,
+    } = req.body;
 
     // Validate if person1Id and relationshipType are provided
-    if (!person1Id || !relationshipType) {
-      return res.status(400).json({ message: 'person1Id and relationshipType are required' });
-    }
+    // if (!person1Id || !relationshipType) {
+    //   return res.status(400).json({ message: 'person1Id and relationshipType are required' });
+    // }
 
     // Create the new person
     const newPerson = await personHandler.createPerson({
@@ -20,6 +28,7 @@ const createNewPerson = async (req, res, next) => {
       gender,
       dateOfBirth,
       dateOfDeath,
+      familyTree: familyTree, // Associate the person with the family tree
     });
 
     // If the person is successfully created, add them to the family tree
@@ -28,26 +37,23 @@ const createNewPerson = async (req, res, next) => {
       const updatedTree = await treeHandler.addMemberToFamilyTree(newPerson._id);
 
       // Validate if relationshipType is provided and is one of the allowed values
-      const validRelationshipTypes = ['ParentChild', 'Spouse', 'Sibling'];
-      if (!validRelationshipTypes.includes(relationshipType)) {
-        return res.status(400).json({
-          message:
-            'Invalid or missing relationshipType. Valid values are ParentChild, Spouse, or Sibling',
-        });
-      }
+      // const validRelationshipTypes = ['ParentChild', 'Spouse', 'Sibling'];
+      // if (!validRelationshipTypes.includes(relationshipType)) {
+      //   return res.status(400).json({
+      //     message:
+      //       'Invalid or missing relationship type. Valid values are ParentChild, Spouse, or Sibling',
+      //   });
+      // }
 
       // Create a relationship between the new person and the specified person
       await relationshipHandler.createRelationship({
-        person1Id,
+        person1Id: req.body.person1Id, // Assuming person1Id is provided in the request body
         person2Id: newPerson._id,
         relationshipType,
       });
 
       // Send a success response with both the new person and relationship
-      res.status(201).json({ newPerson, newRelationship, updatedTree });
-      // } else {
-      //   // Send a success response with only the new person (no relationship)
-      //   res.status(201).json({ newPerson });
+      res.status(201).json({ newPerson, updatedTree });
     }
   } catch (error) {
     // Handle errors

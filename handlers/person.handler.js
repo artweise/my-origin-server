@@ -1,11 +1,32 @@
 import Person from '../models/Person.model.js';
 
-const createPerson = (person) => {
-  return Person.create(person);
+const createPerson = async ({
+  firstName,
+  lastName,
+  gender,
+  dateOfBirth,
+  dateOfDeath,
+  familyTree,
+}) => {
+  try {
+    const newPerson = await Person.create({
+      firstName,
+      lastName,
+      gender,
+      dateOfBirth,
+      dateOfDeath,
+      familyTree, // Assign the familyTree ID to the new person
+    });
+
+    return newPerson; // Return the newly created person
+  } catch (error) {
+    console.error('Error creating person:', error);
+    throw error;
+  }
 };
 
-const getPeopleByTreeId = (treeId) => {
-  return Person.find({ familyTree: treeId }).populate('familyTree');
+const getPeopleByTreeId = (familyTreeId) => {
+  return Person.find({ familyTree: familyTreeId }).populate('familyTree');
 };
 
 const getPersonById = (personId) => {
